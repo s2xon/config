@@ -1,0 +1,20 @@
+# System-specific directories
+dconf/
+pulse/
+systemd/
+gtk-3.0/
+
+# Large or generated directories
+go/
+nvm/
+yay/
+
+# Git credentials (sensitive)
+git/
+
+# Config subdirectory (if it exists for other purposes)
+config/
+
+# Misc generated files
+mimeapps.list
+pavucontrol.ini
