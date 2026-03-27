@@ -1,0 +1,58 @@
+# AeroSpace config
+
+after-login-command = []
+after-startup-command = []
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+accordion-padding = 30
+start-at-login = true
+
+[gaps]
+inner.horizontal = 8
+inner.vertical = 8
+outer.left = 8
+outer.right = 8
+outer.top = 8
+outer.bottom = 8
+
+[mode.main.binding]
+
+# Focus windows
+alt-h = 'focus left'
+alt-l = 'focus right'
+alt-k = 'focus up'
+alt-j = 'focus down'
+
+# Switch workspaces
+cmd-1 = 'workspace 1'
+cmd-2 = 'workspace 2'
+cmd-3 = 'workspace 3'
+cmd-4 = 'workspace 4'
+cmd-5 = 'workspace 5'
+
+# Move windows to workspaces
+cmd-shift-1 = 'move-node-to-workspace 1'
+cmd-shift-2 = 'move-node-to-workspace 2'
+cmd-shift-3 = 'move-node-to-workspace 3'
+cmd-shift-4 = 'move-node-to-workspace 4'
+cmd-shift-5 = 'move-node-to-workspace 5'
+
+# Reload config
+cmd-shift-alt-ctrl-r = 'reload-config'
+
+# Toggle float/tile
+cmd-shift-f = 'layout floating tiling'
+
+# Fullscreen
+cmd-shift-m = 'fullscreen'
+
+# Auto-assign Ghostty to workspace 1, Arc to workspace 2
+[[on-window-detected]]
+if.app-name-regex-substring = 'Ghostty'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Arc'
+run = 'move-node-to-workspace 2'

@@ -1,4 +1,4 @@
-# Recent settings file for Wireshark 4.4.9.
+# Recent settings file for Wireshark 4.6.0.
 #
 # This file is regenerated each time Wireshark is quit
 # and when changing configuration profile.
@@ -95,7 +95,7 @@ gui.show_bytes_show: ASCII
 
 # Main window upper (or leftmost) pane size.
 # Decimal number.
-gui.geometry_main_upper_pane: 274
+gui.geometry_main_upper_pane: 323
 
 # Main window middle pane size.
 # Decimal number.
@@ -122,7 +122,7 @@ column.width:
         %d, -1,
         %p, -1,
         %L, -1,
-        %i, -1
+        %i, 492
 
 # Open conversation dialog tabs.
 # List of conversation names, e.g. "TCP", "IPv6".
@@ -145,7 +145,7 @@ gui.endpoint_tabs_columns:
 gui.rlc_pdus_from_mac_frames: false
 
 # Last directory navigated to in File Open dialog.
-gui.fileopen_remembered_dir: /Users/saxonpayne/Downloads/Wireshark Traces 8.1/
+gui.fileopen_remembered_dir: /Users/saxon/Downloads/wireshark-traces-8.1 (1)/
 
 # Additional Toolbars shown
 # List of additional toolbars to show.
@@ -154,3 +154,14 @@ gui.additional_toolbar_show:
 # Interface Toolbars show.
 # List of interface toolbars to show.
 gui.interface_toolbar_show: 
+
+# TCP Stream Graphs Moving Average Window Size.
+gui.tsd_ma_window_size: 1
+
+# TCP Stream Graphs Dialog Throughput show (hide).
+# true or false (case-insensitive).
+gui.tsd_throughput_show: true
+
+# TCP Stream Graphs Dialog Goodput show (hide).
+# true or false (case-insensitive).
+gui.tsd_goodput_show: false

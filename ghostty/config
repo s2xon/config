@@ -60,12 +60,13 @@ mouse-hide-while-typing = true
 font-thicken = true
 cursor-style-blink = false
 shell-integration = "elvish"
+confirm-close-surface = false
 
+keybind = cmd+enter=unbind
 
+# ~/.config/ghostty/config
 
-
-
-
-
-
+# Enable custom cursor shader
+ custom-shader = ~/.config/ghostty/shaders/trail.glsl
+ custom-shader = ~/.config/ghostty/shaders/moise.glsl
 

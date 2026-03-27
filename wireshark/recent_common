@@ -1,4 +1,4 @@
-# Common recent settings file for Wireshark 4.4.9.
+# Common recent settings file for Wireshark 4.6.0.
 #
 # This file is regenerated each time Wireshark is quit
 # and when changing configuration profile.
@@ -7,20 +7,26 @@
 ######## Recent capture files (latest last), cannot be altered through command line ########
 
 recent.capture_file: /Users/saxonpayne/Downloads/Wireshark Traces 8.1/intro-wireshark-trace1.pcap
+recent.capture_file: /Users/saxon/Downloads/wireshark-traces-8.1/tcp-wireshark-trace1-1.pcapng
+recent.capture_file: /Users/saxon/Downloads/wireshark-traces-8.1 (1)/ethernet-wireshark-trace1.pcapng
 
 ######## Recent capture filters (latest first), cannot be altered through command line ########
 
 
 ######## Recent display filters (latest last), cannot be altered through command line ########
 
+recent.display_filter: tcp.port == 80
+
+recent.display_filter: arp && arp.opcode == 1
+
 recent.display_filter: http
 
 # Main window geometry.
 # Decimal numbers.
-gui.geometry_main_x: 733
-gui.geometry_main_y: 127
-gui.geometry_main_width: 750
-gui.geometry_main_height: 644
+gui.geometry_main_x: 497
+gui.geometry_main_y: 34
+gui.geometry_main_width: 751
+gui.geometry_main_height: 742
 
 # Main window maximized.
 # true or false (case-insensitive).
@@ -28,7 +34,7 @@ gui.geometry_main_maximized: false
 
 # Main window geometry state.
 # Hex byte string.
-gui.geometry_main: 01d9d0cb00030000000002dd0000007f000005ca0000031e000002dd0000009b000005ca0000031e000000000000000005e8000002dd0000009b000005ca0000031e
+gui.geometry_main: 01d9d0cb00030000000001f100000022000004df00000323000001f10000003e000004df00000323000000000000000005e8000001f10000003e000004df00000323
 
 # Leftalign Action Buttons.
 # true or false (case-insensitive).
@@ -71,7 +77,7 @@ gui.search_multiple_occurs: false
 
 # Find packet search type.
 # One of: DISPLAY_FILTER, HEX_VALUE, STRING, REGEX
-gui.search_type: DISPLAY_FILTER
+gui.search_type: STRING
 
 # Geometry and maximized state of PacketDialog window.
 # Decimal integers.
