@@ -1,0 +1,4 @@
+{
+  "enable-web": true,
+  "enable-swift-package-manager": true
+}

@@ -1,0 +1,89 @@
+# This is the configuration file for Ghostty.
+#
+# This template file has been automatically created at the following
+# path since Ghostty couldn't find any existing config files on your system:
+#
+#   /Users/saxonpayne/Library/Application Support/com.mitchellh.ghostty/config
+#
+# The template does not set any default options, since Ghostty ships
+# with sensible defaults for all options. Users should only need to set
+# options that they want to change from the default.
+#
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+#
+# Additionally, each config option is also explained in detail
+# on Ghostty's website, at https://ghostty.org/docs/config.
+
+# Config syntax crash course
+# ==========================
+# # The config file consists of simple key-value pairs,
+# # separated by equals signs.
+# font-family = Iosevka
+# window-padding-x = 2
+#
+# # Spacing around the equals sign does not matter.
+# # All of these are identical:
+# key=value
+# key= value
+# key =value
+# key = value
+#
+# # Any line beginning with a # is a comment. It's not possible to put
+# # a comment after a config option, since it would be interpreted as a
+# # part of the value. For example, this will have a value of "#123abc":
+# background = #123abc
+#
+# # Empty values are used to reset config keys to default.
+# key =
+#
+# # Some config options have unique syntaxes for their value,
+# # which is explained in the docs for that config option.
+# # Just for example:
+# resize-overlay-duration = 4s 200ms
+
+window-width = 171
+window-height = 52
+#window-position-x = 1
+#window-position-y = 1
+window-save-state = default
+theme = "tokyonight"
+font-family = "JetBrainsMonoNL Nerd Font Mono"
+font-size = 15
+background-opacity = 0.8
+window-padding-x = 12
+window-padding-y = 12
+macos-titlebar-proxy-icon = "hidden"
+title = " "
+mouse-hide-while-typing = true
+
+font-thicken = true
+cursor-style-blink = false
+shell-integration = "zsh"
+confirm-close-surface = false
+
+keybind = cmd+enter=unbind
+keybind = cmd+n=new_window
+keybind = cmd+shift+d=unbind
+keybind = cmd+shift+left=resize_split:left,10
+keybind = cmd+shift+right=resize_split:right,10
+keybind = cmd+shift+up=resize_split:up,10
+keybind = cmd+shift+down=resize_split:down,10
+
+# ctrl+opt+1-9: send modifyOtherKeys sequences so tmux can bind them as C-M-1..C-M-9
+keybind = ctrl+alt+1=csi:27;7;49~
+keybind = ctrl+alt+2=csi:27;7;50~
+keybind = ctrl+alt+3=csi:27;7;51~
+keybind = ctrl+alt+4=csi:27;7;52~
+keybind = ctrl+alt+5=csi:27;7;53~
+keybind = ctrl+alt+6=csi:27;7;54~
+keybind = ctrl+alt+7=csi:27;7;55~
+keybind = ctrl+alt+8=csi:27;7;56~
+keybind = ctrl+alt+9=csi:27;7;57~
+
+# ~/.config/ghostty/config
+
+# Enable custom cursor shader
+ custom-shader = ~/.config/ghostty/shaders/trail.glsl
+ custom-shader = ~/.config/ghostty/shaders/moise.glsl
+

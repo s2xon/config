@@ -1,0 +1,131 @@
+@import "colors.css";
+
+/* =====================
+   Global
+   ===================== */
+* {
+  border: none;
+  box-shadow: none;
+  outline: none;
+
+  font-family: "JetBrainsMono Nerd Font Mono";
+  font-size: 12px;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+/* Prevent weird hover lines */
+button {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.modules-left {
+  padding: 2px 4px;
+}
+
+/* =====================
+   Clock pill
+   ===================== */
+#clock {
+  background: @surface;
+  color: @foreground;
+
+  padding: 2px 8px;
+  margin: 6px 0 0 8px;
+
+  border-radius: 999px;
+}
+
+/* =====================
+   Workspace container pill
+   ===================== */
+#workspaces {
+  background: @surface;
+  color: @muted;
+
+  padding: 2px 6px;
+  margin: 6px 0 0 6px;
+
+  border-radius: 999px;
+}
+
+/* Workspace buttons */
+#workspaces button {
+  padding: 0px 6px;
+  margin: 2px 1px;
+
+  border-radius: 10px;
+  background: transparent;
+
+  color: @muted;
+}
+
+/* Active workspace — tight Tokyo Night blue */
+#workspaces button.active {
+  background: @primary;
+  color: @background;
+
+  padding: 0px 6px;
+}
+
+/* Hover — text only, no background */
+#workspaces button:hover {
+  background: transparent;
+  color: @foreground;
+}
+
+/* =====================
+   Power button (Arch)
+   ===================== */
+#custom-power {
+  background: @primary;
+  color: #ffffff;
+
+  /* tighter, rectangular shape */
+  padding: 0px 14px 0px 9px;
+  margin: 6px 8px 6px 0;
+
+  border-radius: 10px; /* rectangle, not pill */
+
+  /* center glyph properly */
+  min-height: 20px;
+
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 14px;
+}
+
+#custom-power:hover {
+  background: @primary_fixed;
+}
+
+/* =====================
+   Battery icon (lightning only)
+   ===================== */
+#battery {
+  background: @surface;
+  color: @foreground;
+
+  /* match power button height */
+  padding: 0px 10px;
+  margin: 6px 6px 6px 0;
+
+  border-radius: 10px;
+  min-height: 20px;
+
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 14px;
+}
+
+/* Charging = Tokyo Night blue lightning */
+#battery.charging {
+  color: @primary;
+}
+
+/* Optional hover (very subtle) */
+#battery:hover {
+  color: @primary_fixed;
+}

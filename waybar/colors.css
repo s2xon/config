@@ -1,0 +1,31 @@
+/* ===========================
+   Tokyo Night – Waybar Colors
+   =========================== */
+
+/* Core background layers */
+@define-color background        #1a1b26;
+@define-color surface           #16161e;
+@define-color surface_container #1f2335;
+@define-color surface_variant   #24283b;
+
+/* Foreground / text */
+@define-color foreground        #c0caf5;
+@define-color secondary         #a9b1d6;
+@define-color outline           #565f89;
+@define-color inverse_surface   #ffffff;
+
+/* Accents */
+@define-color primary           #7aa2f7; /* Blue */
+@define-color primary_fixed     #7dcfff; /* Cyan */
+@define-color secondary_fixed   #bb9af7; /* Purple */
+@define-color tertiary          #9ece6a; /* Green */
+@define-color error             #f7768e; /* Red */
+@define-color warning           #e0af68; /* Yellow */
+
+/* States */
+@define-color success           #9ece6a;
+@define-color muted             #565f89;
+
+/* Transparency helpers */
+@define-color surface_translucent alpha(@surface_container, 0.75);
+@define-color background_translucent alpha(@background, 0.85);

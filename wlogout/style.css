@@ -1,0 +1,76 @@
+/* Tokyo Night Theme */
+* {
+    background-image: none;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+window {
+    background-color: rgba(26, 27, 38, 0.92);
+}
+
+button {
+    color: #c0caf5;
+    background-color: #1a1b26;
+    border: 2px solid #33467c;
+    border-radius: 12px;
+    background-repeat: no-repeat;
+    background-position: center 30%;
+    background-size: 64px;
+    margin: 12px;
+    min-width: 120px;
+    min-height: 120px;
+    box-shadow: none;
+    text-shadow: none;
+    outline: none;
+}
+
+button:hover {
+    background-color: #33467c;
+    border-color: #7aa2f7;
+    color: #7aa2f7;
+}
+
+#lock {
+    background-image: image(url("icons/lock.png"));
+}
+#lock:hover {
+    background-image: image(url("icons/lock-hover.png"));
+}
+
+#logout {
+    background-image: image(url("icons/logout.png"));
+}
+#logout:hover {
+    background-image: image(url("icons/logout-hover.png"));
+}
+
+#suspend {
+    background-image: image(url("icons/sleep.png"));
+}
+#suspend:hover {
+    background-image: image(url("icons/sleep-hover.png"));
+}
+
+#hibernate {
+    background-image: image(url("icons/hibernate.png"));
+}
+#hibernate:hover {
+    background-image: image(url("icons/hibernate-hover.png"));
+}
+
+#reboot {
+    background-image: image(url("icons/restart.png"));
+}
+#reboot:hover {
+    background-image: image(url("icons/restart-hover.png"));
+}
+
+#shutdown {
+    background-image: image(url("icons/power.png"));
+}
+#shutdown:hover {
+    background-image: image(url("icons/power-hover.png"));
+}
