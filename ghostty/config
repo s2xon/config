@@ -48,7 +48,7 @@ window-height = 52
 #window-position-y = 1
 window-save-state = default
 theme = "tokyonight"
-font-family = "Hack Nerd Font Mono"
+font-family = "JetBrainsMonoNL Nerd Font Mono"
 font-size = 15
 background-opacity = 0.8
 window-padding-x = 12
@@ -59,10 +59,27 @@ mouse-hide-while-typing = true
 
 font-thicken = true
 cursor-style-blink = false
-shell-integration = "elvish"
+shell-integration = "zsh"
 confirm-close-surface = false
 
 keybind = cmd+enter=unbind
+keybind = cmd+n=new_window
+keybind = cmd+shift+d=unbind
+keybind = cmd+shift+left=resize_split:left,10
+keybind = cmd+shift+right=resize_split:right,10
+keybind = cmd+shift+up=resize_split:up,10
+keybind = cmd+shift+down=resize_split:down,10
+
+# ctrl+opt+1-9: send modifyOtherKeys sequences so tmux can bind them as C-M-1..C-M-9
+keybind = ctrl+alt+1=csi:27;7;49~
+keybind = ctrl+alt+2=csi:27;7;50~
+keybind = ctrl+alt+3=csi:27;7;51~
+keybind = ctrl+alt+4=csi:27;7;52~
+keybind = ctrl+alt+5=csi:27;7;53~
+keybind = ctrl+alt+6=csi:27;7;54~
+keybind = ctrl+alt+7=csi:27;7;55~
+keybind = ctrl+alt+8=csi:27;7;56~
+keybind = ctrl+alt+9=csi:27;7;57~
 
 # ~/.config/ghostty/config
 
