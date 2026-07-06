@@ -1,0 +1,23 @@
+# Lilac — ported from shubham-saudolla/Lilac-Theme (ANSI from the theme itself)
+palette = 0=#151217
+palette = 1=#ba0e2e
+palette = 2=#a29dfa
+palette = 3=#b657ff
+palette = 4=#f5b0ef
+palette = 5=#8e6da6
+palette = 6=#8e69c9
+palette = 7=#ece1f4
+palette = 8=#3b3442
+palette = 9=#f03e5f
+palette = 10=#fefeff
+palette = 11=#e2bdff
+palette = 12=#ffffff
+palette = 13=#bfaccd
+palette = 14=#c7b4e4
+palette = 15=#ffffff
+background = #080709
+foreground = #e0ceed
+cursor-color = #f8f8f0
+cursor-text = #080709
+selection-background = #3f2a57
+selection-foreground = #e0ceed

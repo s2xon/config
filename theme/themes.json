@@ -1,0 +1,18 @@
+{
+  "tokyonight": {
+    "ghostty": "tokyonight",
+    "nvim": "tokyonight"
+  },
+  "aura": {
+    "ghostty": "Aura Dark",
+    "nvim": "aura-dark"
+  },
+  "expo": {
+    "ghostty": "expo",
+    "nvim": "expo"
+  },
+  "lilac": {
+    "ghostty": "lilac",
+    "nvim": "lilac"
+  }
+}
