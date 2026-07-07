@@ -14,5 +14,9 @@
   "lilac": {
     "ghostty": "lilac",
     "nvim": "lilac"
+  },
+  "catppuccin-mocha": {
+    "ghostty": "Catppuccin Mocha",
+    "nvim": "catppuccin-mocha"
   }
 }
