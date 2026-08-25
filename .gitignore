@@ -18,3 +18,7 @@ config/
 # Misc generated files
 mimeapps.list
 pavucontrol.ini
+
+# Credential stores — never commit (added 2026-08-25)
+gcloud/
+stripe/

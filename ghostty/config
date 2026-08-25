@@ -83,7 +83,19 @@ keybind = ctrl+alt+9=csi:27;7;57~
 
 # ~/.config/ghostty/config
 
-# Enable custom cursor shader
- custom-shader = ~/.config/ghostty/shaders/trail.glsl
- custom-shader = ~/.config/ghostty/shaders/moise.glsl
+# Enable custom cursor shaders
+# Smear trail: cursor zips between positions (KroneCorylus/ghostty-shader-playground,
+# tuned: DURATION 0.2s, saturationBoost 1.2). Swap for cursor_smear_fade.glsl if too much.
+custom-shader = ~/.config/ghostty/shaders/cursor_smear.glsl
+# Ripple on cursor mode change (e.g. vim insert<->normal)
+custom-shader = ~/.config/ghostty/shaders/trail.glsl
+# Static film grain
+custom-shader = ~/.config/ghostty/shaders/moise.glsl
 
+
+# cmd+v -> 0x1f (tmux C-_): smart paste via ~/.config/tmux/paste-clip.sh.
+# Screenshot into a local Claude Code pane pastes natively ([Image #1]);
+# ssh panes get the image pushed + remote path typed; text pastes normally.
+# cmd+shift+v stays as Ghostty's raw clipboard paste (escape hatch).
+keybind = cmd+v=text:\x1f
+keybind = cmd+shift+v=paste_from_clipboard

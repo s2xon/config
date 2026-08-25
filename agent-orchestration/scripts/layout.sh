@@ -5,7 +5,9 @@
 #
 #   WS1 = Arc browser
 #   WS2 = one plain Ghostty window (the index-0 window)
-#   WS3 = four plain Ghostty windows tiled 2x2 (launch `claude` in each by hand)
+#   WS3 = four Ghostty windows tiled 2x2, each attached to a fleet slot on the
+#         MAC MINI (persistent tmux sessions a1-a4 there, claude booted by
+#         start.sh) — the mini is the brain, these windows are just viewers
 #
 # ALL FIVE windows live in a SINGLE Ghostty app instance -- one Dock icon, one
 # Cmd-Tab entry, Cmd-` cycles between them. We create the windows with Ghostty's
@@ -76,13 +78,23 @@ open -a Ghostty 2>/dev/null
 w0="$(wait_new_aid "$before" || true)"
 [ -z "$w0" ] && w0="$(new_ghostty_window || true)"
 
+# --- Boot the fleet on the MAC MINI (the brain), non-fatal if it's down -----
+# Ensures persistent tmux sessions a1-a4 exist on the mini with claude running.
+# Synchronous on purpose: if it ran in the background, the windows below could
+# attach first, mini-attach.sh would create the slots as plain shells, and
+# start.sh would then skip them (idempotent) — no claude. ConnectTimeout=5
+# bounds the login delay when the mini is unreachable.
+"$SCRIPTS/start.sh" \
+  || echo "layout.sh: start.sh failed (mini down?) — windows will show retry prompts" >&2
+
 # --- The four conductor windows, all in the SAME instance -------------------
-# Plain shells. Auto-launching `claude` here was unreliable, so just open empty
-# windows and start `claude` in each by hand after login.
-w1="$(new_ghostty_window)"
-w2="$(new_ghostty_window)"
-w3="$(new_ghostty_window)"
-w4="$(new_ghostty_window)"
+# Each attaches to its mini slot (persistent session aN on the mini). Ghostty
+# runs multi-arg commands via /bin/sh -c, so args are fine here. If the mini
+# is unreachable the window sits at mini-attach.sh's retry prompt.
+w1="$(new_ghostty_window "$HOME/.config/tmux/mini-attach.sh 1")"
+w2="$(new_ghostty_window "$HOME/.config/tmux/mini-attach.sh 2")"
+w3="$(new_ghostty_window "$HOME/.config/tmux/mini-attach.sh 3")"
+w4="$(new_ghostty_window "$HOME/.config/tmux/mini-attach.sh 4")"
 
 # --- Route windows to their workspaces by id --------------------------------
 [ -n "$w0" ] && "$AERO" move-node-to-workspace 2 --window-id "$w0"

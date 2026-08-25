@@ -1,35 +1,31 @@
 #!/usr/bin/env bash
-# Mac-LOCAL. Idempotent: ensures ONE tmux session "fleet" exists, split into a
-# 2x2 grid of 4 *generic* claude conductors (no roles / no duties), each running
-# claude. No per-agent session names, no charters.
-#
-# FUTURE (PC as source of truth): point this + attach.sh at `ssh wsl` and run the
-# session in WSL — everything else is the same.
+# MINI IS THE BRAIN. Idempotent: ensures the four conductor slot sessions
+# a1-a4 exist in the tmux server ON THE MAC MINI, each running claude. Slots
+# created here get claude launched; slots that already exist (including ones
+# prefix+digit opened earlier as plain shells) are left untouched. The Mac
+# holds no fleet state — attach.sh / mini-attach.sh / prefix+1-0 are viewers.
 set -uo pipefail
+
+ssh -o ConnectTimeout=5 mac-mini 'bash -s' <<'REMOTE'
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
-
-TMUX_BIN="$(command -v tmux || echo /opt/homebrew/bin/tmux)"
+TMUX_BIN="$(command -v tmux)" || { echo "ERROR: tmux not installed on the mini"; exit 1; }
 WORKDIR="$HOME/Documents"
-SESSION="fleet"
-# `command claude` bypasses your zsh alias so the flag isn't doubled.
+# `command claude` bypasses any zsh alias so the flag isn't doubled.
 CLAUDE_CMD="command claude --dangerously-skip-permissions"
+HAVE_CLAUDE=1
+command -v claude >/dev/null 2>&1 || HAVE_CLAUDE=0
 
-command -v claude >/dev/null 2>&1 || { echo "ERROR: claude not on PATH"; exit 1; }
-
-if ! "$TMUX_BIN" has-session -t "$SESSION" 2>/dev/null; then
-  # Pane 1, then split into a tiled 2x2 grid (panes 1-4 with pane-base-index 1).
-  "$TMUX_BIN" new-session   -d -s "$SESSION" -c "$WORKDIR"
-  "$TMUX_BIN" split-window  -h -t "$SESSION" -c "$WORKDIR"
-  "$TMUX_BIN" split-window  -v -t "$SESSION" -c "$WORKDIR"
-  "$TMUX_BIN" select-pane      -t "$SESSION.1"
-  "$TMUX_BIN" split-window  -v -t "$SESSION" -c "$WORKDIR"
-  "$TMUX_BIN" select-layout    -t "$SESSION" tiled
-  # Boot a generic claude in each corner — no charter, no assigned role.
-  for p in 1 2 3 4; do
-    "$TMUX_BIN" send-keys -t "$SESSION.$p" "$CLAUDE_CMD" C-m
-  done
-  "$TMUX_BIN" select-pane -t "$SESSION.1"
-fi
-
-echo "Fleet session ready (2x2 claude grid):"
+# "=aN" forces exact-name match (plain -t aN would prefix-match a10).
+for n in 1 2 3 4; do
+  if "$TMUX_BIN" has-session -t "=a$n" 2>/dev/null; then
+    echo "slot a$n: already running"
+  else
+    "$TMUX_BIN" new-session -d -s "a$n" -c "$WORKDIR"
+    [ "$HAVE_CLAUDE" -eq 1 ] && "$TMUX_BIN" send-keys -t "=a$n" "$CLAUDE_CMD" C-m
+    echo "slot a$n: created"
+  fi
+done
+[ "$HAVE_CLAUDE" -eq 1 ] || echo "WARNING: claude not on the mini's PATH — slots are plain shells"
+echo "--- mini tmux sessions:"
 "$TMUX_BIN" ls
+REMOTE

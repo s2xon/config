@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Mac-LOCAL. Attaches a Ghostty window to the single "fleet" tmux session
-# (the 2x2 claude grid). Optional arg overrides the session name.
-# FUTURE: swap the last line for:  exec ssh wsl -t "tmux attach -t fleet"
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
-exec tmux attach -t "${1:-fleet}"
+# Attach this terminal to fleet conductor slot N on the MAC MINI (default 1).
+# Thin wrapper over mini-attach.sh: creates session aN on the mini on demand,
+# retry prompt if the mini is unreachable. Usage: attach.sh [1-10]
+exec "$HOME/.config/tmux/mini-attach.sh" "${1:-1}"

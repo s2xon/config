@@ -3,12 +3,13 @@
 > The setup: AeroSpace workspaces 1–0 that **auto-open on every login**.
 > - **WS1** = Arc browser
 > - **WS2** = one plain, fresh local shell (you drive it; launch claude here as Director when you want)
-> - **WS3** = 4 separate Ghostty windows, each a plain shell — launch `claude` in each by hand (auto-launch was unreliable)
+> - **WS3** = 4 separate Ghostty windows, each attached to a fleet slot on the **mac mini** (persistent tmux sessions `a1`–`a4`, `claude` booted by `start.sh`)
 >
-> **Now:** everything runs **locally on the Mac** (conductors in local tmux sessions).
-> **Later:** move those tmux sessions to the **PC/WSL as the source of truth**, so you
-> can attach the same conductors from your Mac *and* your phone. Migration =
-> point `start.sh`/`attach.sh` at `ssh wsl`; nothing else changes.
+> **Now (2026-08-24): the MAC MINI is the brain.** Conductors are persistent tmux
+> sessions `a1`–`a4` ON THE MINI; the MacBook (and later the PC) is a thin viewer
+> — WS3 windows and `prefix+1-0` (§11) both just ssh-attach. Close the laptop,
+> the fleet keeps running. (The old "PC/WSL as source of truth" idea is dead —
+> the PC is NOT the brain, the mini is.)
 
 Status: **BUILT & VALIDATED on the Mac** — syntax, local tmux, `claude`, the Ghostty
 `-e` launch, and the AeroSpace config all checked. Not yet *run* (one command, below).
@@ -16,8 +17,9 @@ Status: **BUILT & VALIDATED on the Mac** — syntax, local tmux, `claude`, the G
 ## ▶ Turn it on / stop / revert
 
 Built + wired:
-- `scripts/start.sh` (creates 4 local tmux sessions, each running claude),
-  `scripts/attach.sh` (attach a window to one), `scripts/layout.sh` (the launcher) — all executable.
+- `scripts/start.sh` (ensures slot sessions `a1`–`a4` on the MINI, each running claude),
+  `scripts/attach.sh` (attach this terminal to slot N on the mini; wraps
+  `~/.config/tmux/mini-attach.sh`), `scripts/layout.sh` (the launcher) — all executable.
 - `~/.config/aerospace/aerospace.toml` — workspaces 1–0 bound (`cmd-1`…`cmd-9`, `cmd-0`
   + `cmd-shift-N` to move), Arc routed to WS1, and `after-startup-command` runs
   `layout.sh` on login. Original saved at `aerospace.toml.bak-pre-agents`.
@@ -26,10 +28,12 @@ Built + wired:
 ```
 ~/.config/agent-orchestration/scripts/layout.sh
 ```
-Expect Arc on WS1, a plain shell on WS2, 4 plain shell windows tiled on WS3 —
-launch `claude` in each WS3 window by hand.
+Expect Arc on WS1, a plain shell on WS2, 4 windows tiled on WS3 each attached to
+mini slots `a1`–`a4` with `claude` running (or sitting at a retry prompt if the
+mini is down — press `r` there once it's awake).
 
-**Stop the fleet:** `tmux kill-server` (or `tmux kill-session -t web`, etc.).
+**Stop the fleet:** `ssh mac-mini tmux kill-session -t =a1` (per slot), or
+`ssh mac-mini tmux kill-server` to flatten every session on the mini.
 **Pause autostart:** comment out the `after-startup-command` line + `aerospace reload-config`.
 **Revert WM changes:** `cp ~/.config/aerospace/aerospace.toml.bak-pre-agents
 ~/.config/aerospace/aerospace.toml && aerospace reload-config`.
@@ -271,3 +275,37 @@ running `layout.sh` manually, then by logout/login.
 - [ ] **Browser** for WS1 (Chrome / Arc / Safari / …).
 - [ ] **Domain split** web/mobile/learn/ops — good, or a different 4-way cut?
 - [ ] **Build the autostart now**, or keep plan-only a bit longer?
+
+---
+
+## 11. Mini as the brain (2026-08-24)
+
+Decision update: the **source-of-truth machine is the mac mini**, not PC/WSL
+(mini is always-on-capable, macOS, already the ssh target for renders/agents).
+
+**Built:**
+- **prefix+1-0 slot windows** (MacBook `~/.config/tmux/tmux.conf`): `C-b 1`…`C-b 0`
+  jumps to (or opens) window `m1`…`m10` in the current session, each ssh-attached
+  to persistent tmux session `a1`…`a10` on the mini — created on demand, survive
+  disconnects/laptop lid. Root-level `C-digit`/`M-digit` bindings untouched.
+  Window command: `~/.config/tmux/mini-attach.sh <slot>` (retry prompt if mini down).
+  Detach a slot: `C-b C-b d` (double prefix reaches the inner tmux); the window closes.
+- **`mini/tmux.conf`** — the mini-side server conf (mouse scrollback, green status
+  bar = "you're on the mini", `window-size latest` so multiple viewers don't
+  shrink each other). Push with **`scripts/push-mini-conf.sh`** when the mini is awake.
+
+**Same bindings from the PC:** paste the `prefix+1-0` block + `mini-attach.sh`
+into the WSL tmux setup and add the `mac-mini` Host entry to the PC's ssh config.
+
+**Fleet migration — DONE (same day):** slots `a1`–`a4` ARE the fleet now. The
+old one-session/2×2-panes `fleet` design is gone (it also had every WS3 window
+mirroring the same grid). `start.sh` ensures `a1`–`a4` exist on the mini with
+`claude` running (idempotent; leaves existing slots alone), `attach.sh N` =
+viewer for slot N, and `layout.sh` runs `start.sh` then opens the four WS3
+windows on `mini-attach.sh 1`–`4`. Nothing fleet-shaped runs on the MacBook.
+**Still to move: PocketFleet's bridge** (`~/Documents/PocketFleet`) — it reads
+the MacBook's tmux server; repoint it at the mini (run the bridge there).
+
+**Prereq on the mini (once, while physically there or via Screen Sharing):**
+`sudo pmset -a sleep 0 displaysleep 10` — it's a server now; asleep-mini is the
+only failure mode of the whole scheme (Tailscale showed it offline 1d as of this note).
